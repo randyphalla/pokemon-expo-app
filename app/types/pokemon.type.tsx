@@ -85,7 +85,7 @@ export interface PokemonType {
   name: string;
   past_types: PastTypesType[];
   species: SpeciesType[];
-  sprites: SpritesType[];
+  sprites: SpritesType;
   stats: StatsType[];
   types: TypesType[];
   weight: number;

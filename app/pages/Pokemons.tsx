@@ -21,7 +21,7 @@ const Pokemons = () => {
           >
             <Image
               style={styles.PokemonImage}
-              source={pokemon.sprites.front_default}
+              source={{uri: pokemon.sprites.front_default}}
             />
             <View style={styles.PokemonCardInfo}>
               <Text style={styles.PokemonCardName}>{pokemon.name}</Text>
@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   },
   PokemonImage: {
     display: 'flex',
-    width: '96px',
-    height: '96px',
+    width: 96,
+    height: 96,
   },
   PokemonCardInfo: {
     display: 'flex',

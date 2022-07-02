@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 // import Home from './app/pages/Home';
 // import Pokemons from './app/pages/Pokemons';
 import Pokemon from './app/pages/Pokemon';
