@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, Pressable, View } from 'react-native';
+import { colors } from '../constants/Colors';
 
 type BadgeProps = {
   text: string;
@@ -16,6 +17,22 @@ const Badge = (props: BadgeProps) => {
   // console.log(filled);
   // console.log(filledColor);
   // console.log(onPress);
+
+  const generateBadgeStyle = () => {}
+
+  const generateBadgeTextStyle = () => {}
+
+  if (onPress) {
+    return (
+      <Pressable
+        style={styles.badge}
+        onPress={onPress}
+      >
+        <Text style={styles.badgeText}>{text}</Text>
+      </Pressable>
+    )
+  }
+
   return (
     <View style={styles.badge}>
       <Text style={styles.badgeText}>{text}</Text>
@@ -31,7 +48,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: '#fff',
+    borderColor: colors.white,
     borderRadius: 15,
     paddingTop: 5,
     paddingLeft: 10,
@@ -39,9 +56,27 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   badgeText: {
-    color: '#fff',
+    color: colors.white,
     fontWeight: '500',
     fontSize: 14,
     textTransform: 'capitalize',
-  }
+  },
+  bug: {},
+  dark: {},
+  dragon: {},
+  electric: {},
+  fairy: {},
+  fighting: {},
+  fire: {},
+  flying: {},
+  ghost: {},
+  grass: {},
+  ground: {},
+  ice: {},
+  normal: {},
+  poision: {},
+  psychic: {},
+  rock: {},
+  steel: {},
+  water: {},
 });

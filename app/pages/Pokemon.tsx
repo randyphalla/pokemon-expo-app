@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, SafeAreaView, Pressable } from 'react-native';
 import { PokemonType } from '../types/pokemon.type';
 import Badge from '../components/Badge';
 import { MovesType } from '../types/moves.type';
+import { colors } from '../constants/Colors';
 
 const Pokemon = () => {
   const [pokemon, setPokemon] = useState<PokemonType>();
@@ -53,89 +54,106 @@ const Pokemon = () => {
   if (!pokemon) return <Text>Pokemon is loading!</Text>
 
   return (
-    <ScrollView style={styles.ScrollViewContainer}>
-      <View style={styles.PokemonContainer}>
+    <SafeAreaView>
+      <ScrollView  style={styles.ScrollViewContainer}>
+        <View style={styles.PokemonContainer}>
 
-        <Image
-          style={styles.PokemonImage}
-          source={{uri: pokemon.sprites.front_default}}
-        />
+          <Image
+            style={styles.PokemonImage}
+            source={{uri: pokemon.sprites.front_default}}
+          />
 
-        <Text style={styles.PokemonCardName}>{pokemon.name}</Text>
+          <Text style={styles.PokemonCardName}>{pokemon.name}</Text>
 
-        <View style={styles.PokemonCardTypesContainer}>
-          {pokemon && pokemon.types.map((type: any, index: number) => <Badge key={index} text={type.type.name} />)}
-        </View>
+          <View style={styles.PokemonCardTypesContainer}>
+            {pokemon && pokemon.types.map((type: any, index: number) => <Badge key={index} text={type.type.name} />)}
+          </View>
 
-        <View style={styles.PokemonBaseInfo}>
-          <View style={styles.PokemonBaseInfoContainer}>
-            <Text style={styles.PokemonBaseInfoText}>Number</Text>
-            <Text style={styles.PokemonBaseInfoData}>#{pokemon.id}</Text>
-          </View>
-          <View style={styles.PokemonBaseInfoContainer}>
-            <Text style={styles.PokemonBaseInfoText}>Height</Text>
-            <Text style={styles.PokemonBaseInfoData}>{pokemon.height}</Text>
-          </View>
-          <View style={styles.PokemonBaseInfoContainer}>
-            <Text style={styles.PokemonBaseInfoText}>Weight</Text>
-            <Text style={styles.PokemonBaseInfoData}>{pokemon.weight}</Text>
-          </View>
-          <View style={styles.PokemonBaseInfoContainer}>
-            <Text style={styles.PokemonBaseInfoText}>Base experience</Text>
-            <Text style={styles.PokemonBaseInfoData}>{pokemon.base_experience}</Text>
-          </View>
-          <View style={styles.PokemonBaseInfoContainer}>
-            <Text style={styles.PokemonBaseInfoText}>Abilities</Text>
-            <View>
-              {pokemon.abilities.map((ability: any, index: number) => <Text style={styles.PokemonBaseInfoData} key={index}>{ability.ability.name}</Text>)}
+          <View style={styles.PokemonBaseInfo}>
+            <View style={styles.PokemonBaseInfoContainer}>
+              <Text style={styles.PokemonBaseInfoText}>Number</Text>
+              <Text style={styles.PokemonBaseInfoData}>#{pokemon.id}</Text>
+            </View>
+            <View style={styles.PokemonBaseInfoContainer}>
+              <Text style={styles.PokemonBaseInfoText}>Height</Text>
+              <Text style={styles.PokemonBaseInfoData}>{pokemon.height}</Text>
+            </View>
+            <View style={styles.PokemonBaseInfoContainer}>
+              <Text style={styles.PokemonBaseInfoText}>Weight</Text>
+              <Text style={styles.PokemonBaseInfoData}>{pokemon.weight}</Text>
+            </View>
+            <View style={styles.PokemonBaseInfoContainer}>
+              <Text style={styles.PokemonBaseInfoText}>Base experience</Text>
+              <Text style={styles.PokemonBaseInfoData}>{pokemon.base_experience}</Text>
+            </View>
+            <View style={styles.PokemonBaseInfoContainer}>
+              <Text style={styles.PokemonBaseInfoText}>Abilities</Text>
+              <View>
+                {pokemon.abilities.map((ability: any, index: number) => <Text style={styles.PokemonBaseInfoData} key={index}>{ability.ability.name}</Text>)}
+              </View>
+            </View>
+            <View style={styles.PokemonBaseInfoContainer}>
+              <Text style={styles.PokemonBaseInfoText}>Moves</Text>
+              <Text style={styles.PokemonBaseInfoData}>{pokemon.moves.length}</Text>
             </View>
           </View>
-          <View style={styles.PokemonBaseInfoContainer}>
-            <Text style={styles.PokemonBaseInfoText}>Moves</Text>
-            <Text style={styles.PokemonBaseInfoData}>{pokemon.moves.length}</Text>
-          </View>
-        </View>
 
-        {/* Stats */}
-        <View style={styles.PokemonStats}>
-          <Text style={styles.PokemonCategory}>Stats</Text>
-          {pokemon.stats.map((stat: any, index: number) =>
-            <View style={styles.PokemonStat} key={index}>
-              <Text style={styles.PokemonStatName}>{stat.stat.name}</Text>
-              <Text style={styles.PokemonStatBaseNumber}>{stat.base_stat}</Text>
+          <View style={styles.buttons}>
+            <Pressable style={styles.button} onPress={handleStatsTab}>
+              <Text style={styles.buttonText}>Stats</Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={handleMovesTab}>
+              <Text style={styles.buttonText}>Moves</Text>
+            </Pressable>
+            <Pressable style={styles.button} onPress={handleSpritesTab}>
+              <Text style={styles.buttonText}>Sprites</Text>
+            </Pressable>
+          </View>
+
+          {/* Stats */}
+          {statsTab && (
+            <View style={styles.PokemonStats}>
+              {pokemon.stats.map((stat: any, index: number) =>
+                <View style={styles.PokemonStat} key={index}>
+                  <Text style={styles.PokemonStatName}>{stat.stat.name}</Text>
+                  <Text style={styles.PokemonStatBaseNumber}>{stat.base_stat}</Text>
+                </View>
+              )}
             </View>
           )}
-        </View>
 
-        {/* Moves */}
-        <View style={styles.PokemonMoves}>
-          <Text style={styles.PokemonCategory}>Moves</Text>
-          {pokemonMoves && pokemonMoves.map((pokemonMove: MovesType, index: number) =>
-            <View key={index} style={styles.PokemonMove}>
-              <Text style={styles.PokemonMoveName}>{pokemonMove.name}</Text>
-              <Text style={styles.PokemonMoveAccuracy}>Accuracy: {pokemonMove.accuracy}</Text>
-              <Text style={styles.PokemonMoveAccuracy}>Power: {pokemonMove.power ? pokemonMove.power : 0}</Text>
-              <Text style={styles.PokemonMoveAccuracy}>PP: {pokemonMove.pp}</Text>
-              <Text style={styles.PokemonMoveAccuracy}>Type: {pokemonMove.type.name}</Text>
+          {/* Moves */}
+          {movesTab && (
+            <View style={styles.PokemonMoves}>
+              {pokemonMoves && pokemonMoves.map((pokemonMove: MovesType, index: number) =>
+                <View key={index} style={styles.PokemonMove}>
+                  <Text style={styles.PokemonMoveName}>{pokemonMove.name}</Text>
+                  <Text style={styles.PokemonMoveAccuracy}>Accuracy: {pokemonMove.accuracy}</Text>
+                  <Text style={styles.PokemonMoveAccuracy}>Power: {pokemonMove.power ? pokemonMove.power : 0}</Text>
+                  <Text style={styles.PokemonMoveAccuracy}>PP: {pokemonMove.pp}</Text>
+                  <Text style={styles.PokemonMoveAccuracy}>Type: {pokemonMove.type.name}</Text>
+                </View>
+              )}
             </View>
           )}
-        </View>
 
-        {/* Sprites */}
-        <View style={styles.PokemonSprites}>
-          <Text style={styles.PokemonCategory}>Sprites</Text>
-          {pokemon.sprites.back_default && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_default}} />}
-          {pokemon.sprites.back_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_female}} />}
-          {pokemon.sprites.back_shiny && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_shiny}} />}
-          {pokemon.sprites.back_shiny_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_shiny_female}} />}
-          {pokemon.sprites.front_default && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_default}} />}
-          {pokemon.sprites.front_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_female}} />}
-          {pokemon.sprites.front_shiny && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_shiny}} />}
-          {pokemon.sprites.front_shiny_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_shiny_female}} />}
-        </View>
+          {/* Sprites */}
+          {spritesTab && (
+            <View style={styles.PokemonSprites}>
+              {pokemon.sprites.back_default && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_default}} />}
+              {pokemon.sprites.back_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_female}} />}
+              {pokemon.sprites.back_shiny && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_shiny}} />}
+              {pokemon.sprites.back_shiny_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_shiny_female}} />}
+              {pokemon.sprites.front_default && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_default}} />}
+              {pokemon.sprites.front_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_female}} />}
+              {pokemon.sprites.front_shiny && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_shiny}} />}
+              {pokemon.sprites.front_shiny_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_shiny_female}} />}
+            </View>
+          )}
 
-      </View>
-    </ScrollView>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 };
 
@@ -148,6 +166,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    paddingTop: 32,
+    paddingBottom: 32,
     backgroundColor: '#3E4047',
   },
   PokemonImage: {
@@ -157,7 +177,7 @@ const styles = StyleSheet.create({
   },
   PokemonCardName: {
     marginBottom: 10,
-    color: '#fff',
+    color: colors.white,
     fontWeight: '700',
     fontSize: 30,
     textTransform: 'capitalize',
@@ -171,7 +191,10 @@ const styles = StyleSheet.create({
   PokemonBaseInfo: {
     marginTop: 16,
     marginBottom: 16,
-    width: '95%',
+    marginLeft: 16,
+    marginRight: 16,
+    // width: '95%',
+    width: 'calc(100% - 32px)',
     borderRadius: 8,
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     padding: 16,
@@ -189,12 +212,12 @@ const styles = StyleSheet.create({
   },
   PokemonBaseInfoText: {
     marginBottom: 8,
-    color: '#fff',
+    color: colors.white,
     fontWeight: '400',
     fontSize: 12,
   },
   PokemonBaseInfoData: {
-    color: '#fff',
+    color: colors.white,
     fontWeight: '700',
     fontSize: 16,
     textTransform: 'capitalize'
@@ -206,13 +229,13 @@ const styles = StyleSheet.create({
   },
   PokemonStatName: {
     marginRight: 10,
-    color: '#fff',
+    color: colors.white,
     fontWeight: '500',
     fontSize: 14,
     textTransform: 'capitalize'
   },
   PokemonStatBaseNumber: {
-    color: '#fff',
+    color: colors.white,
     fontWeight: '800',
     fontSize: 14,
   },
@@ -223,14 +246,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   PokemonMoveName: {
-    color: '#fff',
+    color: colors.white,
     fontWeight: '700',
     fontSize: 18,
     textTransform: 'capitalize'
   },
   PokemonMoveAccuracy: {
     marginTop: 3,
-    color: '#fff',
+    color: colors.white,
     fontWeight: '500',
     fontSize: 14,
     textTransform: 'capitalize'
@@ -242,8 +265,32 @@ const styles = StyleSheet.create({
   },
   PokemonCategory: {
     marginBottom: 10,
-    color: '#fff',
+    color: colors.white,
     fontWeight: '700',
     fontSize: 25,
-  }
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%',
+    padding: '16px',
+  },
+  button: {
+    paddingTop: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 5,
+    marginRight: 16,
+    borderWidth: 1,
+    borderColor: colors.white,
+    borderStyle: 'solid',
+    borderRadius: 8,
+  },
+  buttonText: {
+    fontSize: 16,
+    color: colors.white,
+    fontWeight: '600',
+  },
 });

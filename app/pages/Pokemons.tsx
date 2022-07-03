@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, Image, Pressable, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable, ScrollView, SafeAreaView } from 'react-native';
 import usePokemons from '../hooks/usePokemons';
 import { PokemonType } from '../types/pokemon.type';
 import Badge from '../components/Badge';
+import { colors } from '../constants/Colors';
 
 const Pokemons = () => {
   const pokemons = usePokemons().pokemons;
@@ -11,29 +12,31 @@ const Pokemons = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.pokemonsList}>
-        {pokemons && pokemons.map((pokemon: PokemonType, index: number) =>
-          <Pressable
-            style={styles.PokemonCard}
-            key={index}
-            onPress={() => goToPokemonDetails(pokemon)}
-          >
-            <Image
-              style={styles.PokemonImage}
-              source={{uri: pokemon.sprites.front_default}}
-            />
-            <View style={styles.PokemonCardInfo}>
-              <Text style={styles.PokemonCardName}>{pokemon.name}</Text>
-              <Text style={styles.PokemonCardNumber}>{pokemon.id}</Text>
-              <View style={styles.PokemonCardTypesContainer}>
-                {pokemon && pokemon.types.map((type: any, index: number) => <Badge key={index} text={type.type.name} />)}
+    <SafeAreaView>
+      <ScrollView style={styles.container}>
+        <View style={styles.pokemonsList}>
+          {pokemons && pokemons.map((pokemon: PokemonType, index: number) =>
+            <Pressable
+              style={styles.PokemonCard}
+              key={index}
+              onPress={() => goToPokemonDetails(pokemon)}
+            >
+              <Image
+                style={styles.PokemonImage}
+                source={{uri: pokemon.sprites.front_default}}
+              />
+              <View style={styles.PokemonCardInfo}>
+                <Text style={styles.PokemonCardName}>{pokemon.name}</Text>
+                <Text style={styles.PokemonCardNumber}>{pokemon.id}</Text>
+                <View style={styles.PokemonCardTypesContainer}>
+                  {pokemon && pokemon.types.map((type: any, index: number) => <Badge key={index} text={type.type.name} />)}
+                </View>
               </View>
-            </View>
-          </Pressable>
-        )}
-      </View>
-    </ScrollView>
+            </Pressable>
+          )}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 };
 
@@ -58,7 +61,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: '#fff',
+    borderColor: colors.white,
     borderRadius: 8,
     backgroundColor: 'rgba(0, 0, 0, 0.05)'
   },
