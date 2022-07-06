@@ -29,7 +29,13 @@ const Pokemons = () => {
                 <Text style={styles.PokemonCardName}>{pokemon.name}</Text>
                 <Text style={styles.PokemonCardNumber}>{pokemon.id}</Text>
                 <View style={styles.PokemonCardTypesContainer}>
-                  {pokemon && pokemon.types.map((type: any, index: number) => <Badge key={index} text={type.type.name} />)}
+                  {pokemon && pokemon.types.map((type: any, index: number) =>
+                    <Badge
+                      key={index}
+                      type={type.type.name}
+                      text={type.type.name}
+                    />
+                  )}
                 </View>
               </View>
             </Pressable>
@@ -78,15 +84,16 @@ const styles = StyleSheet.create({
   },
   PokemonCardName: {
     color: '#060506',
-    fontWeight: '700',
+    fontFamily: 'Poppins_700Bold',
     fontSize: 30,
+    lineHeight: 30,
     textTransform: 'capitalize',
   },
   PokemonCardNumber: {
     marginTop: 10,
     marginBottom: 10,
     color: '#060506',
-    fontWeight: '500',
+    fontFamily: 'Poppins_500Medium',
     fontSize: 14,
     textTransform: 'capitalize',
   },

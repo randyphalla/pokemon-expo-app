@@ -9,7 +9,7 @@ const Pokemon = () => {
   const [pokemon, setPokemon] = useState<PokemonType>();
   const [movesTab, setMovesTab] = useState(false);
   const [spritesTab, setSpritesTab] = useState(false);
-  const [statsTab, setStatsTab] = useState(false);
+  const [statsTab, setStatsTab] = useState(true);
   const [pokemonMoves, setPokemonMoves] = useState<any[]>([]);
 
   const handleMovesTab = () => {
@@ -66,7 +66,13 @@ const Pokemon = () => {
           <Text style={styles.PokemonCardName}>{pokemon.name}</Text>
 
           <View style={styles.PokemonCardTypesContainer}>
-            {pokemon && pokemon.types.map((type: any, index: number) => <Badge key={index} text={type.type.name} />)}
+            {pokemon && pokemon.types.map((type: any, index: number) =>
+              <Badge
+                key={index}
+                type={type.type.name}
+                text={type.type.name}
+              />
+            )}
           </View>
 
           <View style={styles.PokemonBaseInfo}>
@@ -99,13 +105,13 @@ const Pokemon = () => {
           </View>
 
           <View style={styles.buttons}>
-            <Pressable style={styles.button} onPress={handleStatsTab}>
+            <Pressable style={[styles.button, statsTab ? styles.buttonActive : null]} onPress={handleStatsTab}>
               <Text style={styles.buttonText}>Stats</Text>
             </Pressable>
-            <Pressable style={styles.button} onPress={handleMovesTab}>
+            <Pressable style={[styles.button, movesTab ? styles.buttonActive : null]} onPress={handleMovesTab}>
               <Text style={styles.buttonText}>Moves</Text>
             </Pressable>
-            <Pressable style={styles.button} onPress={handleSpritesTab}>
+            <Pressable style={[styles.button, spritesTab ? styles.buttonActive : null]} onPress={handleSpritesTab}>
               <Text style={styles.buttonText}>Sprites</Text>
             </Pressable>
           </View>
@@ -287,6 +293,14 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
     borderStyle: 'solid',
     borderRadius: 8,
+  },
+  buttonActive: {
+    // borderTopColor: 'transparent',
+    // borderLeftColor: 'transparent',
+    // borderRightColor: 'transparent',
+    // borderRadius: 0,
+    borderColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
   },
   buttonText: {
     fontSize: 16,
