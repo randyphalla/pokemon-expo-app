@@ -13,7 +13,7 @@ type BadgeProps = {
 
 const Badge = (props: BadgeProps) => {
   const { type, text, outline, outlineColor, filled, filledColor, onPress } = props;
-  console.log(type);
+  // console.log('type ', type);
   // console.log('outline ', outline);
   // console.log('outlineColor ', outlineColor);
   // console.log('filled ', filled);

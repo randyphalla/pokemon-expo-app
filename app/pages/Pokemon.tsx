@@ -5,7 +5,8 @@ import Badge from '../components/Badge';
 import { MovesType } from '../types/moves.type';
 import { colors } from '../constants/Colors';
 
-const Pokemon = () => {
+const Pokemon = ({ route }: any) => {
+  const { pokemonId } = route.params;
   const [pokemon, setPokemon] = useState<PokemonType>();
   const [movesTab, setMovesTab] = useState(false);
   const [spritesTab, setSpritesTab] = useState(false);
@@ -35,7 +36,7 @@ const Pokemon = () => {
 
   useEffect(() => {
     const fetchPokemon = async () => {
-      const data = await fetch('https://pokeapi.co/api/v2/pokemon/150');
+      const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
       const json = await data.json();
       setPokemon(json);
       const pokemonMoves = json.moves;

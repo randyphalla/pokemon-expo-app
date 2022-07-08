@@ -1,8 +1,8 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './app/pages/Home';
 import Pokemons from './app/pages/Pokemons';
 import Pokemon from './app/pages/Pokemon';
-
 import AppLoading from 'expo-app-loading';
 import {
   useFonts,
@@ -26,9 +26,9 @@ import {
   Poppins_900Black_Italic,
 } from '@expo-google-fonts/poppins';
 
-
 export default function App() {
-  let [fontsLoaded] = useFonts({
+  const Stack: any = createNativeStackNavigator();
+  const [fontsLoaded] = useFonts({
     Poppins_100Thin,
     Poppins_100Thin_Italic,
     Poppins_200ExtraLight,
@@ -52,21 +52,25 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />
   }
-
   return (
-    <View style={styles.container}>
-      {/* <Home /> */}
-      {/* <Pokemons /> */}
-      <Pokemon />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{title: 'Home'}}
+        />
+        <Stack.Screen
+          name="Pokemons"
+          component={Pokemons}
+          options={{title: 'Pokemons'}}
+        />
+        <Stack.Screen
+          name="Pokemon"
+          component={Pokemon}
+          options={{title: 'Pokemon'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-  },
-});

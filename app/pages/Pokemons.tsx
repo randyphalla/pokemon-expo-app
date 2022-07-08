@@ -3,12 +3,14 @@ import usePokemons from '../hooks/usePokemons';
 import { PokemonType } from '../types/pokemon.type';
 import Badge from '../components/Badge';
 import { colors } from '../constants/Colors';
+import { NavigationProps } from '../types/navigation.type';
 
-const Pokemons = () => {
+const Pokemons = ({navigation}: NavigationProps) => {
   const pokemons = usePokemons().pokemons;
+  const { navigate } = navigation;
 
-  const goToPokemonDetails = (pokemon: any) => {
-    console.log(pokemon)
+  const goToPokemonDetails = (pokemon: PokemonType) => {
+    navigate('Pokemon', {pokemonId: pokemon.id});
   };
 
   return (
