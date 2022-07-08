@@ -1,13 +1,43 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Image, SafeAreaView, Pressable } from 'react-native';
-import { PokemonType } from '../types/pokemon.type';
+import { PokemonType, SpritesType } from '../types/pokemon.type';
 import Badge from '../components/Badge';
 import { MovesType } from '../types/moves.type';
 import { colors } from '../constants/Colors';
 
 const Pokemon = ({ route }: any) => {
   const { pokemonId } = route.params;
-  const [pokemon, setPokemon] = useState<PokemonType>();
+  const pokemonSpritesObj: SpritesType = {
+    back_default: '',
+    back_female: '',
+    back_shiny: '',
+    back_shiny_female: '',
+    front_default: '',
+    front_female: '',
+    front_shiny: '',
+    front_shiny_female: '',
+  };
+  const pokemonObj: PokemonType = {
+    abilities: [],
+    base_experience: 0,
+    forms: [],
+    game_indices: [],
+    height: 0,
+    held_items: [],
+    id: 0,
+    is_default: false,
+    location_area_encounters: '',
+    moves: [],
+    name: '',
+    past_types: [],
+    species: [],
+    sprites: pokemonSpritesObj,
+    stats: [],
+    types: [],
+    weight: 0,
+  };
+
+  const [pokemon, setPokemon] = useState<PokemonType>(pokemonObj);
   const [movesTab, setMovesTab] = useState(false);
   const [spritesTab, setSpritesTab] = useState(false);
   const [statsTab, setStatsTab] = useState(true);
@@ -52,7 +82,7 @@ const Pokemon = ({ route }: any) => {
     fetchPokemon().catch(err => console.error('fetching pokemon ', err));
   }, []);
 
-  if (!pokemon) return <Text>Pokemon is loading!</Text>
+  if (!pokemon && !pokemonMoves) return <Text>Pokemon is loading!</Text>
 
   return (
     <SafeAreaView>

@@ -10,7 +10,10 @@ const Pokemons = ({navigation}: NavigationProps) => {
   const { navigate } = navigation;
 
   const goToPokemonDetails = (pokemon: PokemonType) => {
-    navigate('Pokemon', {pokemonId: pokemon.id});
+    navigate('Pokemon', {
+      name: pokemon.name,
+      pokemonId: pokemon.id,
+    });
   };
 
   return (
