@@ -3,7 +3,7 @@ import { colors, TypeColors } from '../constants/Colors';
 
 type BadgeProps = {
   type?: string
-  text: string;
+  text?: string;
   outline?: string;
   outlineColor?: string;
   filled?: string;
@@ -62,6 +62,45 @@ const Badge = (props: BadgeProps) => {
     if (type === 'water') return styles.water;
     if (type === 'unknown') return styles.unknown;
   };
+
+  const generateBadgeAltStyle = () => {
+    let bgColor = '';
+    if (type === 'bug') bgColor = TypeColors.bug;
+    if (type === 'dark') bgColor = TypeColors.dark;
+    if (type === 'dragon') bgColor = TypeColors.dragon;
+    if (type === 'electric') bgColor = TypeColors.electric;
+    if (type === 'fairy') bgColor = TypeColors.fairy;
+    if (type === 'fighting') bgColor = TypeColors.fighting;
+    if (type === 'fire') bgColor = TypeColors.fire;
+    if (type === 'flying') bgColor = TypeColors.flying;
+    if (type === 'ghost') bgColor = TypeColors.ghost;
+    if (type === 'grass') bgColor = TypeColors.grass;
+    if (type === 'ground') bgColor = TypeColors.ground;
+    if (type === 'ice') bgColor = TypeColors.ice;
+    if (type === 'normal') bgColor = TypeColors.normal;
+    if (type === 'poison') bgColor = TypeColors.poison;
+    if (type === 'psychic') bgColor = TypeColors.psychic;
+    if (type === 'rock') bgColor = TypeColors.rock;
+    if (type === 'steel') bgColor = TypeColors.steel;
+    if (type === 'water') bgColor = TypeColors.water;
+    if (type === 'unknown') bgColor = TypeColors.unknown;
+    return bgColor;
+  };
+
+  if (!text) {
+    return (
+      <View
+        style={{
+          backgroundColor: generateBadgeAltStyle(),
+          height: 10,
+          width: 10,
+          marginLeft: 4,
+          marginRight: 4,
+          borderRadius: 15,
+        }}
+      />
+    );
+  }
 
   if (onPress) {
     return (
