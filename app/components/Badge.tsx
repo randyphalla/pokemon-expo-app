@@ -92,10 +92,8 @@ const Badge = (props: BadgeProps) => {
       <View
         style={{
           backgroundColor: generateBadgeAltStyle(),
-          height: 10,
-          width: 10,
-          marginLeft: 4,
-          marginRight: 4,
+          height: 15,
+          width: 15,
           borderRadius: 15,
         }}
       />
@@ -125,7 +123,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: colors.white,
+    borderColor: colors.greyOne,
     borderRadius: 15,
     paddingTop: 5,
     paddingLeft: 10,
@@ -133,7 +131,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   badgeText: {
-    color: colors.white,
+    color: colors.greyOne,
     fontFamily: 'Poppins_500Medium',
     fontSize: 12,
     textTransform: 'capitalize',

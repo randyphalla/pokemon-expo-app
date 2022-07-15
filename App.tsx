@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import Home from './app/pages/Home';
 import Pokemons from './app/pages/Pokemons';
 import Pokemon from './app/pages/Pokemon';
-import AppLoading from 'expo-app-loading';
 import {
   useFonts,
   Poppins_100Thin,
@@ -50,7 +49,7 @@ export default function App() {
   });
 
   if (!fontsLoaded) {
-    return <AppLoading />
+    return false;
   }
 
   return (

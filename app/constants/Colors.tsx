@@ -21,5 +21,13 @@ export const TypeColors = {
 };
 
 export const colors = {
-  white: '#ffffff',
+  greyOne: '#ffffff',
+  greyTwo: '#d6d6d6',
+  greyThree: '#afafaf',
+  greyFour: '#898989',
+  greyFive: '#666666',
+  greySix: '#444444',
+  greySeven: '#252525',
+  greyEight: '#010101',
+  greyNine: '',
 };

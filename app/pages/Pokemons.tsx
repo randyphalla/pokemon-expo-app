@@ -2,8 +2,8 @@ import { StyleSheet, Text, View, Image, Pressable, ScrollView, SafeAreaView } fr
 import usePokemons from '../hooks/usePokemons';
 import { PokemonType } from '../types/pokemon.type';
 import Badge from '../components/Badge';
-import { colors } from '../constants/Colors';
 import { NavigationProps } from '../types/navigation.type';
+import { colors } from '../constants/Colors';
 
 const Pokemons = ({navigation}: NavigationProps) => {
   const pokemons = usePokemons().pokemons;
@@ -32,7 +32,7 @@ const Pokemons = ({navigation}: NavigationProps) => {
               />
               <View style={styles.PokemonCardInfo}>
                 <Text style={styles.PokemonCardName}>{pokemon.name}</Text>
-                <Text style={styles.PokemonCardNumber}>{pokemon.id}</Text>
+                <Text style={styles.PokemonCardNumber}>#{pokemon.id}</Text>
                 <View style={styles.PokemonCardTypesContainer}>
                   {pokemon && pokemon.types.map((type: any, index: number) =>
                     <Badge
@@ -54,13 +54,12 @@ const Pokemons = ({navigation}: NavigationProps) => {
 export default Pokemons;
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 13,
-    paddingBottom: 13,
-  },
+  container: {},
   pokemonsList: {
     marginLeft: 13,
     marginRight: 13,
+    paddingTop: 13,
+    paddingBottom: 13,
   },
   PokemonCard: {
     display: 'flex',
@@ -68,11 +67,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     padding: 10,
+    paddingBottom: 20,
     marginTop: 8,
     marginBottom: 8,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: colors.white,
+    borderColor: 'transparent',
     borderRadius: 8,
     backgroundColor: 'rgba(0, 0, 0, 0.05)'
   },
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   PokemonCardName: {
-    color: '#060506',
+    color: colors.greyEight,
     fontFamily: 'Poppins_700Bold',
     fontSize: 30,
     lineHeight: 30,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   PokemonCardNumber: {
     marginTop: 10,
     marginBottom: 10,
-    color: '#060506',
+    color: colors.greyEight,
     fontFamily: 'Poppins_500Medium',
     fontSize: 14,
     textTransform: 'capitalize',

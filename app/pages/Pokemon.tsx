@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, SafeAreaView, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, SafeAreaView, Pressable, Dimensions  } from 'react-native';
 import { PokemonType, SpritesType } from '../types/pokemon.type';
 import Badge from '../components/Badge';
 import { MovesType } from '../types/moves.type';
@@ -64,6 +64,10 @@ const Pokemon = ({ route }: any) => {
     setStatsTab(false);
   }
 
+  const calculateStat = (num: number) => {
+    return Dimensions.get('window').width - num;
+  };
+
   useEffect(() => {
     const fetchPokemon = async () => {
       const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
@@ -82,7 +86,10 @@ const Pokemon = ({ route }: any) => {
     fetchPokemon().catch(err => console.error('fetching pokemon ', err));
   }, []);
 
-  if (!pokemon && !pokemonMoves) return <Text>Pokemon is loading!</Text>
+
+  const isPokemonMoves = pokemonMoves.length > 0;
+
+  if (!pokemon && !isPokemonMoves) return <Text>Pokemon is loading!</Text>
 
   return (
     <SafeAreaView>
@@ -154,6 +161,12 @@ const Pokemon = ({ route }: any) => {
                 <View style={styles.PokemonStat} key={index}>
                   <Text style={styles.PokemonStatName}>{stat.stat.name}</Text>
                   <Text style={styles.PokemonStatBaseNumber}>{stat.base_stat}</Text>
+                  <View style={styles.PokemonStatBar}>
+                    <View style={[
+                      styles.PokemonStatBarInner,
+                      {width: stat.base_stat}
+                    ]} />
+                  </View>
                 </View>
               )}
             </View>
@@ -164,11 +177,14 @@ const Pokemon = ({ route }: any) => {
             <View style={styles.PokemonMoves}>
               {pokemonMoves && pokemonMoves.map((pokemonMove: MovesType, index: number) =>
                 <View key={index} style={styles.PokemonMove}>
-                  <Text style={styles.PokemonMoveName}>{pokemonMove.name}</Text>
-                  <Text style={styles.PokemonMoveAccuracy}>Accuracy: {pokemonMove.accuracy}</Text>
-                  <Text style={styles.PokemonMoveAccuracy}>Power: {pokemonMove.power ? pokemonMove.power : 0}</Text>
-                  <Text style={styles.PokemonMoveAccuracy}>PP: {pokemonMove.pp}</Text>
-                  <Text style={styles.PokemonMoveAccuracy}>Type: {pokemonMove.type.name}</Text>
+                  <Badge type={pokemonMove.type.name} />
+                  <View style={styles.PokemonMoveContent}>
+                    <Text style={styles.PokemonMoveName}>{pokemonMove.name}</Text>
+                    <Text style={styles.PokemonMoveAccuracy}>Accuracy: {pokemonMove.accuracy}</Text>
+                    <Text style={styles.PokemonMoveAccuracy}>Power: {pokemonMove.power ? pokemonMove.power : 0}</Text>
+                    <Text style={styles.PokemonMoveAccuracy}>PP: {pokemonMove.pp}</Text>
+                    <Text style={styles.PokemonMoveAccuracy}>Type: {pokemonMove.type.name}</Text>
+                  </View>
                 </View>
               )}
             </View>
@@ -177,14 +193,14 @@ const Pokemon = ({ route }: any) => {
           {/* Sprites */}
           {spritesTab && (
             <View style={styles.PokemonSprites}>
-              {pokemon.sprites.back_default && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_default}} />}
-              {pokemon.sprites.back_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_female}} />}
-              {pokemon.sprites.back_shiny && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_shiny}} />}
-              {pokemon.sprites.back_shiny_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_shiny_female}} />}
               {pokemon.sprites.front_default && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_default}} />}
-              {pokemon.sprites.front_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_female}} />}
+              {pokemon.sprites.back_default && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_default}} />}
               {pokemon.sprites.front_shiny && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_shiny}} />}
+              {pokemon.sprites.back_shiny && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_shiny}} />}
+              {pokemon.sprites.front_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_female}} />}
+              {pokemon.sprites.back_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_female}} />}
               {pokemon.sprites.front_shiny_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.front_shiny_female}} />}
+              {pokemon.sprites.back_shiny_female && <Image style={styles.PokemonSpritesImage} source={{uri: pokemon.sprites.back_shiny_female}} />}
             </View>
           )}
 
@@ -214,7 +230,7 @@ const styles = StyleSheet.create({
   },
   PokemonCardName: {
     marginBottom: 10,
-    color: colors.white,
+    color: colors.greyOne,
     fontWeight: '700',
     fontSize: 30,
     textTransform: 'capitalize',
@@ -231,7 +247,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
     // width: '95%',
-    width: 'calc(100% - 32px)',
+    // width: 'calc(100% - 32px)',
     borderRadius: 8,
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     padding: 16,
@@ -244,65 +260,106 @@ const styles = StyleSheet.create({
   PokemonBaseInfoContainer: {
     padding: 8,
     margin: 8,
-    width: '25%',
+    // width: '25%',
     textAlign: 'center',
   },
   PokemonBaseInfoText: {
     marginBottom: 8,
-    color: colors.white,
+    color: colors.greyOne,
     fontWeight: '400',
     fontSize: 12,
   },
   PokemonBaseInfoData: {
-    color: colors.white,
+    color: colors.greyOne,
     fontWeight: '700',
     fontSize: 16,
     textTransform: 'capitalize'
   },
-  PokemonStats: {},
+  PokemonStats: {
+    padding: 16,
+    width: '100%',
+  },
   PokemonStat: {
     display: 'flex',
-    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: 10,
+    marginBottom: 10,
   },
   PokemonStatName: {
-    marginRight: 10,
-    color: colors.white,
+    color: colors.greyOne,
     fontWeight: '500',
     fontSize: 14,
     textTransform: 'capitalize'
   },
   PokemonStatBaseNumber: {
-    color: colors.white,
+    marginTop: 15,
+    marginBottom: 15,
+    color: colors.greyOne,
     fontWeight: '800',
     fontSize: 14,
   },
+  PokemonStatBar: {
+    width: 200,
+    height: 10,
+    borderRadius: 8,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  PokemonStatBarInner: {
+    width: '100%',
+    height: 10,
+    backgroundColor: '#000',
+    borderRadius: 8,
+  },
   PokemonMoves: {
+    padding: 16,
+    paddingTop: 0,
+    width: '100%',
   },
   PokemonMove: {
-    marginTop: 10,
-    marginBottom: 10,
+    padding: 16,
+    paddingLeft: 0,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+    borderBottomWidth: 1,
+    borderBottomStyle: 'solid',
+  },
+  PokemonMoveContent: {
+    marginLeft: 15,
   },
   PokemonMoveName: {
-    color: colors.white,
+    color: colors.greyOne,
     fontWeight: '700',
     fontSize: 18,
     textTransform: 'capitalize'
   },
   PokemonMoveAccuracy: {
     marginTop: 3,
-    color: colors.white,
+    color: colors.greyOne,
     fontWeight: '500',
     fontSize: 14,
     textTransform: 'capitalize'
   },
-  PokemonSprites: {},
+  PokemonSprites: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    padding: 16,
+  },
   PokemonSpritesImage: {
     width: 96,
     height: 96,
   },
   PokemonCategory: {
     marginBottom: 10,
-    color: colors.white,
+    color: colors.greyOne,
     fontWeight: '700',
     fontSize: 25,
   },
@@ -312,7 +369,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     width: '100%',
-    padding: '16px',
+    padding: 16,
   },
   button: {
     paddingTop: 5,
@@ -321,21 +378,17 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     marginRight: 16,
     borderWidth: 1,
-    borderColor: colors.white,
+    borderColor: colors.greyOne,
     borderStyle: 'solid',
     borderRadius: 8,
   },
   buttonActive: {
-    // borderTopColor: 'transparent',
-    // borderLeftColor: 'transparent',
-    // borderRightColor: 'transparent',
-    // borderRadius: 0,
     borderColor: 'rgba(0, 0, 0, 0.2)',
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
   },
   buttonText: {
     fontSize: 16,
-    color: colors.white,
+    color: colors.greyOne,
     fontWeight: '600',
   },
 });
