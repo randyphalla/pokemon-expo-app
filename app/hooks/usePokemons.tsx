@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const usePokemons = (url?: string) => {
+const usePokemons = () => {
   const [pokemons, setPokemons] = useState<any>();
 
   useEffect(() => {

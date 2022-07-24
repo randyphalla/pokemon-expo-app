@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingTop: 32,
     paddingBottom: 32,
-    backgroundColor: '#3E4047',
+    backgroundColor: colors.greyEight,
   },
   PokemonImage: {
     display: 'flex',
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     // width: '95%',
     // width: 'calc(100% - 32px)',
     borderRadius: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
     padding: 16,
     display: 'flex',
     justifyContent: 'space-between',
@@ -304,12 +304,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 10,
     borderRadius: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
   },
   PokemonStatBarInner: {
     width: '100%',
     height: 10,
-    backgroundColor: '#000',
+    backgroundColor: colors.greyOne,
     borderRadius: 8,
   },
   PokemonMoves: {
@@ -325,7 +325,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'row',
-    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+    borderBottomColor: 'rgba(255, 255, 255, 0.05)',
     borderBottomWidth: 1,
     borderBottomStyle: 'solid',
   },
@@ -383,8 +383,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   buttonActive: {
-    borderColor: 'rgba(0, 0, 0, 0.2)',
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    borderColor: 'transparent',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
   },
   buttonText: {
     fontSize: 16,
