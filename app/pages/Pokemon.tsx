@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingTop: 32,
     paddingBottom: 32,
-    backgroundColor: colors.greyEight,
+    backgroundColor: colors.greyOne,
   },
   PokemonImage: {
     display: 'flex',
@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
   },
   PokemonCardName: {
     marginBottom: 10,
-    color: colors.greyOne,
+    color: colors.greyEight,
     fontWeight: '700',
     fontSize: 30,
     textTransform: 'capitalize',
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     // width: '95%',
     // width: 'calc(100% - 32px)',
     borderRadius: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
     padding: 16,
     display: 'flex',
     justifyContent: 'space-between',
@@ -265,12 +265,12 @@ const styles = StyleSheet.create({
   },
   PokemonBaseInfoText: {
     marginBottom: 8,
-    color: colors.greyOne,
+    color: colors.greyEight,
     fontWeight: '400',
     fontSize: 12,
   },
   PokemonBaseInfoData: {
-    color: colors.greyOne,
+    color: colors.greyEight,
     fontWeight: '700',
     fontSize: 16,
     textTransform: 'capitalize'
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   PokemonStatName: {
-    color: colors.greyOne,
+    color: colors.greyEight,
     fontWeight: '500',
     fontSize: 14,
     textTransform: 'capitalize'
@@ -296,7 +296,7 @@ const styles = StyleSheet.create({
   PokemonStatBaseNumber: {
     marginTop: 15,
     marginBottom: 15,
-    color: colors.greyOne,
+    color: colors.greyEight,
     fontWeight: '800',
     fontSize: 14,
   },
@@ -304,12 +304,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 10,
     borderRadius: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
   },
   PokemonStatBarInner: {
     width: '100%',
     height: 10,
-    backgroundColor: colors.greyOne,
+    backgroundColor: colors.greyEight,
     borderRadius: 8,
   },
   PokemonMoves: {
@@ -333,14 +333,14 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   PokemonMoveName: {
-    color: colors.greyOne,
+    color: colors.greyEight,
     fontWeight: '700',
     fontSize: 18,
     textTransform: 'capitalize'
   },
   PokemonMoveAccuracy: {
     marginTop: 3,
-    color: colors.greyOne,
+    color: colors.greyEight,
     fontWeight: '500',
     fontSize: 14,
     textTransform: 'capitalize'
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
   },
   PokemonCategory: {
     marginBottom: 10,
-    color: colors.greyOne,
+    color: colors.greyEight,
     fontWeight: '700',
     fontSize: 25,
   },
@@ -378,7 +378,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     marginRight: 16,
     borderWidth: 1,
-    borderColor: colors.greyOne,
+    borderColor: colors.greyEight,
     borderStyle: 'solid',
     borderRadius: 8,
   },
@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    color: colors.greyOne,
+    color: colors.greyEight,
     fontWeight: '600',
   },
 });

@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import Home from './app/pages/Home';
+import Home from './app/pages/Home';
 import Pokemons from './app/pages/Pokemons';
 import Pokemon from './app/pages/Pokemon';
 import {
@@ -54,12 +54,12 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Pokemons">
-        {/* <Stack.Screen
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
           name="Home"
           component={Home}
           options={{title: 'Home'}}
-        /> */}
+        />
         <Stack.Screen
           name="Pokemons"
           component={Pokemons}

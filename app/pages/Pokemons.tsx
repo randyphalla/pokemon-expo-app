@@ -54,7 +54,9 @@ const Pokemons = ({navigation}: NavigationProps) => {
 export default Pokemons;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    backgroundColor: colors.greyOne,
+  },
   pokemonsList: {
     marginLeft: 13,
     marginRight: 13,
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: 'transparent',
     borderRadius: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.05)'
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
   },
   PokemonImage: {
     display: 'flex',
