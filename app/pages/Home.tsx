@@ -20,13 +20,13 @@ const Home = ({navigation}: NavigationProps) => {
           <Text style={styles.buttonText}>Pokemons</Text>
         </Pressable>
 
-        <Pressable style={styles.button}>
+        {/* <Pressable style={styles.button}>
           <Text style={styles.buttonText}>Items (Coming Soon)</Text>
         </Pressable>
 
         <Pressable style={styles.button}>
           <Text style={styles.buttonText}>Types (Coming Soon)</Text>
-        </Pressable>
+        </Pressable> */}
 
       </View>
 

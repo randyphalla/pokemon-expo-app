@@ -63,11 +63,7 @@ const Pokemon = ({ route }: any) => {
     setSpritesTab(false);
     setStatsTab(false);
   }
-
-  const calculateStat = (num: number) => {
-    return Dimensions.get('window').width - num;
-  };
-
+  
   useEffect(() => {
     const fetchPokemon = async () => {
       const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
@@ -175,6 +171,7 @@ const Pokemon = ({ route }: any) => {
           {/* Moves */}
           {movesTab && (
             <View style={styles.PokemonMoves}>
+              {/* {pokemonMoves.length > 0 && <Text style={styles.PokemonMoveName}>Loading {pokemon.name} moves....</Text>} */}
               {pokemonMoves && pokemonMoves.map((pokemonMove: MovesType, index: number) =>
                 <View key={index} style={styles.PokemonMove}>
                   <Badge type={pokemonMove.type.name} />

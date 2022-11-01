@@ -54,7 +54,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Pokemons">
         <Stack.Screen
           name="Home"
           component={Home}
